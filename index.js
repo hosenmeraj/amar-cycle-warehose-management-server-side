@@ -19,13 +19,23 @@ async function run() {
     try {
         await client.connect();
         const inventoryCollection = client.db("amarCycle").collection("inventory");
-        const doc = {
-            title: "Record of a Shriveled Datum",
-            content: "No bytes, no problem. Just insert a document, in MongoDB",
-            quantity: "1"
-        }
-        const result = await inventoryCollection.insertOne(doc)
-        console.log(`A document was inserted with the _id: ${result.insertedId}`)
+
+        //get:
+        app.get('/inventory', async (req, res) => {
+            const query = {}
+            const cursor = inventoryCollection.find(query)
+            const inventory = await cursor.toArray()
+            res.send(inventory)
+        })
+
+        //POST inventory: add a new user
+        app.post('/inventory', async (req, res) => {
+            const newInventory = req.body
+            console.log("new adding", newInventory)
+            const result = await inventoryCollection.insertOne(newInventory)
+            res.send(result)
+
+        })
     }
     finally {
 
