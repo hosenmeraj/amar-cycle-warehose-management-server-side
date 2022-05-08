@@ -54,10 +54,15 @@ async function run() {
             const updateDoc = {
                 $set: {
                     name: updateInventory.name,
-                    email: updateInventory.email,
+                    // email: updateInventory.email,
+                    quantity: updateInventory.quantity,
+                    supplier: updateInventory.supplier,
+                    // price: updateInventory.price
 
                 },
+
             };
+            console.log(name);
             const result = await inventoryCollection.updateOne(filter, updateDoc, options)
             res.send(result)
 
