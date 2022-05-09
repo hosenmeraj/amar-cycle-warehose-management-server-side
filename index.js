@@ -58,7 +58,7 @@ async function run() {
 
                 },
             };
-            // console.log(name);
+
             const result = await inventoryCollection.updateOne(filter, updateDoc, options)
             console.log(result)
             res.send(result)
