@@ -49,21 +49,18 @@ async function run() {
         app.put(`/inventory/:id`, async (req, res) => {
             const id = req.params.id
             const updateInventory = req.body
+            console.log('fromupdate api', updateInventory)
             const filter = { _id: ObjectId(id) }
             const options = { upsert: true };
             const updateDoc = {
                 $set: {
-                    name: updateInventory.name,
-                    // email: updateInventory.email,
                     quantity: updateInventory.quantity,
-                    supplier: updateInventory.supplier,
-                    // price: updateInventory.price
 
                 },
-
             };
-            console.log(name);
+            // console.log(name);
             const result = await inventoryCollection.updateOne(filter, updateDoc, options)
+            console.log(result)
             res.send(result)
 
         })
